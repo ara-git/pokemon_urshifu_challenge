@@ -45,7 +45,7 @@ def get_party_data(url):
     # ページのカウント
     page_count = 0
 
-    while len(party_list) <= num_of_party:
+    while len(party_list) < num_of_party:
         # ページカウントを増やす
         page_count += 1
         # 指定したURLに遷移
@@ -103,7 +103,7 @@ if __name__ == "__main__":
     )
 
     dark_urshifu_df = get_party_data(urls[0])
-    print(dark_urshifu_df)
+    dark_urshifu_df.to_csv("data/urshifu_pocket-function.csv")
 
     water_urshifu_df = get_party_data(urls[1])
-    print(water_urshifu_df)
+    water_urshifu_df.to_csv("data/water_urshifu_pocket-function.csv")
