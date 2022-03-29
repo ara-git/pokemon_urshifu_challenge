@@ -67,8 +67,7 @@ def get_party_data(url):
 
         # 次のページへ
         time.sleep(3)
-        print(page_count)
-        print(len(party_list))
+        print("number of party:", len(party_list))
 
     # Chromeを終了
     driver.quit()
@@ -98,17 +97,3 @@ def main(dark_urshifu_url, water_urshifu_url):
     water_urshifu_df = get_party_data(water_urshifu_url)
 
     return dark_urshifu_df, water_urshifu_df
-    
-"""
-if __name__ == "__main__":
-    urls = (
-        "https://nouthuca.com/search/?pokemon%5B0%5D=%E3%82%A6%E3%83%BC%E3%83%A9%E3%82%AA%E3%82%B9%E6%82%AA",
-        "https://nouthuca.com/search/?pokemon%5B0%5D=%E3%82%A6%E3%83%BC%E3%83%A9%E3%82%AA%E3%82%B9%E6%B0%B4",
-    )
-
-    dark_urshifu_df = get_party_data(urls[0])
-    dark_urshifu_df.to_csv("data/urshifu_pocket-function.csv")
-
-    water_urshifu_df = get_party_data(urls[1])
-    water_urshifu_df.to_csv("data/water_urshifu_pocket-function.csv")
-"""
