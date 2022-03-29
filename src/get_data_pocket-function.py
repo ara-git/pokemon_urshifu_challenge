@@ -37,7 +37,7 @@ def get_party_data(url):
     ).text
     num_of_party = re.findall(r"\d+", num_of_party)
     num_of_party = int(".".join(num_of_party))
-    print(num_of_party)
+    print("num:", num_of_party)
 
     # 結果の格納先
     party_list = []
@@ -49,8 +49,7 @@ def get_party_data(url):
         # ページカウントを増やす
         page_count += 1
         # 指定したURLに遷移
-        driver.get(url + str(page_count))
-
+        driver.get(url + "&num=" + str(page_count))
         # 構築の情報を読み込み、リスト形式で保存する
         elements = driver.find_elements_by_class_name("party")
 
@@ -71,6 +70,7 @@ def get_party_data(url):
         # 次のページへ
         time.sleep(3)
         print(page_count)
+        print(len(party_list))
 
     # Chromeを終了
     driver.quit()
