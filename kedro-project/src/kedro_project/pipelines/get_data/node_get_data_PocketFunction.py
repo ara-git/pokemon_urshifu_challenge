@@ -9,20 +9,18 @@ import time
 import pandas as pd
 import re
 
-
-# ChromeOptionsを設定
-options = webdriver.ChromeOptions()
-options.add_argument("--disable-gpu")
-options.add_argument("--disable-extensions")
-options.add_argument('--proxy-server="direct://"')
-options.add_argument("--proxy-bypass-list=*")
-options.add_argument("--start-maximized")
-options.add_argument("--kiosk")
-# chromeを開かない
-options.add_argument("--headless")
-
-
 def get_party_data(url):
+    # ChromeOptionsを設定
+    options = webdriver.ChromeOptions()
+    options.add_argument("--disable-gpu")
+    options.add_argument("--disable-extensions")
+    options.add_argument('--proxy-server="direct://"')
+    options.add_argument("--proxy-bypass-list=*")
+    options.add_argument("--start-maximized")
+    options.add_argument("--kiosk")
+    # chromeを開かない
+    options.add_argument("--headless")
+
     # Chromeを起動
     print("Chromeを起動中...")
     driver = webdriver.Chrome(options=options)
@@ -95,7 +93,13 @@ def get_party_data(url):
 
     return party_df
 
+def main(dark_urshifu_url, water_urshifu_url):
+    dark_urshifu_df = get_party_data(dark_urshifu_url)
+    water_urshifu_df = get_party_data(water_urshifu_url)
 
+    return dark_urshifu_df, water_urshifu_df
+    
+"""
 if __name__ == "__main__":
     urls = (
         "https://nouthuca.com/search/?pokemon%5B0%5D=%E3%82%A6%E3%83%BC%E3%83%A9%E3%82%AA%E3%82%B9%E6%82%AA",
@@ -107,3 +111,4 @@ if __name__ == "__main__":
 
     water_urshifu_df = get_party_data(urls[1])
     water_urshifu_df.to_csv("data/water_urshifu_pocket-function.csv")
+"""
