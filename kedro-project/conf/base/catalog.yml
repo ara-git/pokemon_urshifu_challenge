@@ -10,3 +10,7 @@ raw_dark_urshifu_data:
 raw_water_urshifu_data:
   type: pandas.CSVDataSet
   filepath: data/01_raw/water_urshifu_data.csv
+
+intermediate_data:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/preprocessed_data.csv
