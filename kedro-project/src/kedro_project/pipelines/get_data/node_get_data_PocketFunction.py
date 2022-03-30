@@ -93,6 +93,14 @@ def get_party_data(url):
     return party_df
 
 def main(dark_urshifu_url, water_urshifu_url):
+    """
+    Augs
+        dark_urshifu_url: ぽけっとふぁんくしょんの悪ウーラオス構築ページのurl
+        water_urshifu_url: 同上（悪⇒水）
+    Returns
+        dark_urshifu_df: 悪ウーラオス入り構築に関するdf
+        water_urshifu_df: 同上（悪⇒水）   
+    """
     dark_urshifu_df = get_party_data(dark_urshifu_url)
     water_urshifu_df = get_party_data(water_urshifu_url)
 
