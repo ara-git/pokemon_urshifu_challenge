@@ -11,6 +11,10 @@ raw_water_urshifu_data:
   type: pandas.CSVDataSet
   filepath: data/01_raw/water_urshifu_data.csv
 
-intermediate_data:
+intermediate_preprocessed_data:
   type: pandas.CSVDataSet
   filepath: data/02_intermediate/preprocessed_data.csv
+
+model_output_weight:
+  type: pandas.CSVDataSet
+  filepath: data/07_model_output/weight.csv
