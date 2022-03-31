@@ -1,20 +1,40 @@
-# Here you can define all your data sets by using simple YAML syntax.
-#
-# Documentation for this file format can be found in "The Data Catalog"
-# Link: https://kedro.readthedocs.io/en/stable/05_data/01_data_catalog.html
-
+# 01_raw
 raw_dark_urshifu_data:
   type: pandas.CSVDataSet
   filepath: data/01_raw/dark_urshifu_data.csv
+  save_args:
+    index: False
+    encoding: "utf-8"
+  fs_args:
+    open_args_save:
+      encoding: "utf-8"
 
 raw_water_urshifu_data:
   type: pandas.CSVDataSet
   filepath: data/01_raw/water_urshifu_data.csv
+  save_args:
+    index: False
+    encoding: "utf-8"
+  fs_args:
+    open_args_save:
+      encoding: "utf-8"
 
+pokemon_data_sheet:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/pokemon_data_sheet.csv
+  save_args:
+    index: False
+    encoding: "utf-8"
+  fs_args:
+    open_args_save:
+      encoding: "utf-8"
+
+# 02_intermediate
 intermediate_preprocessed_data:
   type: pandas.CSVDataSet
   filepath: data/02_intermediate/preprocessed_data.csv
 
+# 07_model_output
 model_output_weight:
   type: pandas.CSVDataSet
   filepath: data/07_model_output/weight.csv

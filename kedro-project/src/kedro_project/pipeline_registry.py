@@ -19,7 +19,8 @@ def register_pipelines() -> Dict[str, Pipeline]:
     
     if os.environ.get("get_data") == "True":
         # データのインストールから行う場合
-        return {"get_data": get_data_pipeline, "preprocess": preprocess_pipeline, "train": preprocess_train, "__default__": get_data_pipeline + preprocess_pipeline + preprocess_train}
+        # return {"get_data": get_data_pipeline, "preprocess": preprocess_pipeline, "train": preprocess_train, "__default__": get_data_pipeline + preprocess_pipeline + preprocess_train}
+        return {"get_data": get_data_pipeline, "preprocess": preprocess_pipeline, "train": preprocess_train, "__default__": get_data_pipeline}
     else:
         # データの前処理から行う場合
         return {"preprocess": preprocess_pipeline, "train": preprocess_train, "__default__": preprocess_pipeline + preprocess_train}
