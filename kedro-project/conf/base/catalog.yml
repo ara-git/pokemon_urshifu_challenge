@@ -30,6 +30,16 @@ pokemon_data_sheet:
       encoding: "utf-8"
 
 # 02_intermediate
+intermediate_merged_data:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/merged_data.csv
+  save_args:
+    index: False
+    encoding: "utf-8"
+  fs_args:
+    open_args_save:
+      encoding: "utf-8"
+  
 intermediate_frequent_pokemon_data:
   type: pandas.CSVDataSet
   filepath: data/02_intermediate/frequent_pokemon.csv
@@ -40,9 +50,10 @@ intermediate_frequent_pokemon_data:
     open_args_save:
       encoding: "utf-8"
 
-intermediate_preprocessed_data:
+# 03_primary
+primary_one_hot_data:
   type: pandas.CSVDataSet
-  filepath: data/02_intermediate/preprocessed_data.csv
+  filepath: data/03_primary/one_hot_data.csv
   save_args:
     index: False
     encoding: "utf-8"
