@@ -15,7 +15,7 @@ def make_used_type_features(merged_df, pokemon_data_sheet):
 
     for data in merged_df.itertuples():
         # 構築毎にデータを取り出す
-        ## 仕様数をカウントする辞書をリセットする
+        ## 使用数をカウントする辞書をリセットする
         type_count_dict = dict(zip(type_name, [0] * len(type_name)))
 
         for i in range(1, 7):

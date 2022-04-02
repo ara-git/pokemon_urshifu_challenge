@@ -29,8 +29,37 @@ raw_pokemon_data_sheet:
     open_args_save:
       encoding: "utf-8"
 
+raw_opponent_pokemon:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/opponent_pokemon.csv
+  save_args:
+    index: False
+    encoding: "utf-8"
+  fs_args:
+    open_args_save:
+      encoding: "utf-8"
+
+raw_type_compatibility:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/type_compatibility.csv
+  save_args:
+    index: False
+    encoding: "utf-8"
+  fs_args:
+    open_args_save:
+      encoding: "utf-8"
+
 # 02_intermediate
-  
+intermediate_opponent_compatibility:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/opponent_compatibility.csv
+  save_args:
+    index: True
+    encoding: "utf-8"
+  fs_args:
+    open_args_save:
+      encoding: "utf-8"
+
 # 03_primary
 primary_merged_data:
   type: pandas.CSVDataSet
