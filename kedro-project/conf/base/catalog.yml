@@ -19,7 +19,7 @@ raw_water_urshifu_data:
     open_args_save:
       encoding: "utf-8"
 
-pokemon_data_sheet:
+raw_pokemon_data_sheet:
   type: pandas.CSVDataSet
   filepath: data/01_raw/pokemon_data_sheet.csv
   save_args:
@@ -30,30 +30,11 @@ pokemon_data_sheet:
       encoding: "utf-8"
 
 # 02_intermediate
-intermediate_merged_data:
-  type: pandas.CSVDataSet
-  filepath: data/02_intermediate/merged_data.csv
-  save_args:
-    index: False
-    encoding: "utf-8"
-  fs_args:
-    open_args_save:
-      encoding: "utf-8"
   
-intermediate_frequent_pokemon_data:
-  type: pandas.CSVDataSet
-  filepath: data/02_intermediate/frequent_pokemon.csv
-  save_args:
-    index: False
-    encoding: "utf-8"
-  fs_args:
-    open_args_save:
-      encoding: "utf-8"
-
 # 03_primary
-primary_one_hot_data:
+primary_merged_data:
   type: pandas.CSVDataSet
-  filepath: data/03_primary/one_hot_data.csv
+  filepath: data/03_primary/merged_data.csv
   save_args:
     index: False
     encoding: "utf-8"
@@ -61,7 +42,38 @@ primary_one_hot_data:
     open_args_save:
       encoding: "utf-8"
 
-# 05_model_output
+# 04_feature
+feature_used_pokemon:
+  type: pandas.CSVDataSet
+  filepath: data/04_feature/used_pokemon.csv
+  save_args:
+    index: False
+    encoding: "utf-8"
+  fs_args:
+    open_args_save:
+      encoding: "utf-8"
+
+feature_type_frequency:
+  type: pandas.CSVDataSet
+  filepath: data/04_feature/type_feaure.csv
+  save_args:
+    index: False
+    encoding: "utf-8"
+  fs_args:
+    open_args_save:
+      encoding: "utf-8"
+
+# 05_model_input
+model_input_feature_merged_data:
+  type: pandas.CSVDataSet
+  filepath: data/05_model_input/feature_merged_data.csv
+  save_args:
+    index: False
+    encoding: "utf-8"
+  fs_args:
+    open_args_save:
+      encoding: "utf-8"
+
 model_input_train_x:
   type: pandas.CSVDataSet
   filepath: data/05_model_input/train_x.csv

@@ -1,6 +1,4 @@
 from sklearn.model_selection import train_test_split
-import pandas as pd
-import numpy as np
 
 def split_data(df):
     train, test = train_test_split(df, random_state = 0, test_size = 0.2)

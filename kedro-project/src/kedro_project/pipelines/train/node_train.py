@@ -1,4 +1,19 @@
 #学習
+from sklearn.ensemble import GradientBoostingClassifier
+import numpy as np
+import pandas as pd
+
+def train_GBDT(train_x, train_y,test_x, test_y):
+    clf = GradientBoostingClassifier(n_estimators=100, learning_rate=0.1,
+            max_depth=1).fit(train_x, train_y)
+
+    print ("Predict ",clf.predict(test_x))
+    print ("Expected", test_y)
+    print (clf.score(test_x, test_y))
+
+    return pd.DataFrame([1,2])
+
+"""
 import xgboost as xgb
 from sklearn.model_selection import cross_validate,cross_val_predict, StratifiedKFold
 import pandas as pd
@@ -40,26 +55,6 @@ def train_GBDT(train_x, train_y,test_x, test_y):
                         ax=ax,
                         importance_type='gain',
                         show_values=False)
-
     plt.show()
     return pd.DataFrame([1,2])
-    """
-    # 説明変数・被説明変数を定義
-    y = df["target"]
-    X = df[df.columns[df.columns != 'target']]
-
-    # 学習し、closs-varidation
-    splits = 5
-    skf = StratifiedKFold(n_splits=splits, shuffle=True, random_state=42)
-    score_funcs = ["accuracy","precision_macro","recall_macro","f1_macro"]
-    
-    clf = xgb.XGBClassifier(objective="binary:logistic")
-    
-    score = cross_validate(clf, X, y, cv=skf, scoring=score_funcs,return_estimator=True)
-    
-    print(score["test_accuracy"].mean())
-    print(score["test_precision_macro"].mean())
-    print(score["test_recall_macro"].mean())
-    print(score["test_f1_macro"].mean())
-    return pd.DataFrame([1,2])
-    """
+"""

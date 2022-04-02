@@ -1,15 +1,6 @@
 import pandas as pd
 
-
-def merge_data(dark_urshifu_data, water_urshifu_data):
-    """
-    悪、水ウーラオスのデータを結合する
-    """
-    merged_df = pd.concat([dark_urshifu_data, water_urshifu_data])
-    return merged_df
-
-
-def convert_one_hot(merged_df, frequent_pokemon_data):
+def make_used_pokemon_features(merged_df, param_freq_threshold):
     """
     使用したポケモンに関する、シンプルなone-hotデータに変換する。
     ただし、低頻出（一回以下）ポケモンのデータは使わない。
@@ -21,7 +12,7 @@ def convert_one_hot(merged_df, frequent_pokemon_data):
         one_hot_df:パーティで使用しているポケモンの情報のみが入ったシンプルなone-hot
     """
     # 高頻出ポケモンのリストを作成し、それに関する辞書を作成する    
-    frequent_list = list(frequent_pokemon_data["name"])
+    frequent_list = make_frequent_pokemon_data(merged_df, param_freq_threshold)
     one_hot_dict = dict(zip(frequent_list, [0] * len(frequent_list)))
 
     one_hot_list = []
@@ -45,8 +36,23 @@ def convert_one_hot(merged_df, frequent_pokemon_data):
     # 不要列を削除する
     del one_hot_df["ウーラオス水"]
 
-    return one_hot_df    
+    return one_hot_df
 
-"""
-def preprocess(merged_df, frequent_pokemon_data):
-"""
+def make_frequent_pokemon_data(merged_df, param_freq_threshold):
+    """
+    出現したポケモンのリストを作る。一回しか出てこないポケモンは除外する。
+    Augs
+        merged_df:悪、水ウーラオスのデータを結合したもの
+    Returns
+        frequent_pokemon_df:indexがポケモン名、value列が出現回数を意味するdataframe
+    """
+    # ポケモンの出現回数を計算する    
+    ## ポケモンのデータのみ抽出し、縦のベクトルにする
+    poke_vec = merged_df.iloc[:, 0:6]
+    count_df = pd.DataFrame(poke_vec.melt()["value"].value_counts())
+    
+    # 出現回数が少ないポケモンは足切りした上で、出現ポケモンのベクトル（DataFrame）を作る
+    frequent_pokemon_df = count_df[count_df["value"] >= param_freq_threshold]
+    
+    frequent_pokemon_list = list(frequent_pokemon_df.index)
+    return frequent_pokemon_list
