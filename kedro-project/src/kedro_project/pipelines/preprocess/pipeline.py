@@ -12,6 +12,7 @@ from .node_merge_raw_data import merge_raw_data
 from .node_make_used_pokemon_features import make_used_pokemon_features
 from .node_make_used_type_features import make_used_type_features
 from .node_merge_features import merge_features
+from .node_make_opponent_advantage_feature import make_opponent_advantage_features
 
 def create_pipeline(**kwargs):
     return Pipeline(
@@ -35,10 +36,15 @@ def create_pipeline(**kwargs):
                 make_used_type_features,
                 ["primary_merged_data", "raw_pokemon_data_sheet"],
                 "feature_type_frequency"
+            ),
+            node(
+                make_opponent_advantage_features,
+                ["feature_type_frequency", "intermediate_opponent_compatibility"],
+                "feature_opponent_advantage"
             ), 
             node(
                 merge_features,
-                ["feature_used_pokemon", "feature_type_frequency"],
+                ["feature_used_pokemon", "feature_type_frequency", "feature_opponent_advantage", "parameters"],
                 "model_input_feature_merged_data"
             ),
 

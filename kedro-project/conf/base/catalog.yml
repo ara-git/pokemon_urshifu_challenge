@@ -92,6 +92,16 @@ feature_type_frequency:
     open_args_save:
       encoding: "utf-8"
 
+feature_opponent_advantage:
+  type: pandas.CSVDataSet
+  filepath: data/04_feature/opponent_advantage.csv
+  save_args:
+    index: False
+    encoding: "utf-8"
+  fs_args:
+    open_args_save:
+      encoding: "utf-8"
+
 # 05_model_input
 model_input_feature_merged_data:
   type: pandas.CSVDataSet
