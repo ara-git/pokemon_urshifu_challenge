@@ -9,7 +9,7 @@ from kedro.pipeline import Pipeline, node
 
 from .node_merge_raw_data import merge_raw_data
 from .node_make_used_pokemon_features import make_used_pokemon_features
-from .node_make_additional_features import make_type_features
+from .node_used_type_features import make_used_type_features
 from .node_merge_features import merge_features
 
 def create_pipeline(**kwargs):
@@ -26,7 +26,7 @@ def create_pipeline(**kwargs):
                 "feature_used_pokemon"
             ),
             node(
-                make_type_features,
+                make_used_type_features,
                 ["primary_merged_data", "raw_pokemon_data_sheet"],
                 "feature_type_frequency"
             ), 
