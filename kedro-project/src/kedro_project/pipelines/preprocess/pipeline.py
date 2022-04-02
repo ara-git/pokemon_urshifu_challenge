@@ -8,7 +8,7 @@ from heapq import merge
 from kedro.pipeline import Pipeline, node
 
 from .node_merge_raw_data import merge_raw_data
-from .node_preprocess import make_used_pokemon_features
+from .node_make_used_pokemon_features import make_used_pokemon_features
 from .node_make_additional_features import make_type_features
 from .node_merge_features import merge_features
 

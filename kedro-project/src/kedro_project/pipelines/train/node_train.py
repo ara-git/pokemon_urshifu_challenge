@@ -3,6 +3,7 @@ from sklearn.ensemble import GradientBoostingClassifier
 import numpy as np
 import pandas as pd
 
+"""
 def train_GBDT(train_x, train_y,test_x, test_y):
     clf = GradientBoostingClassifier(n_estimators=100, learning_rate=0.1,
             max_depth=1).fit(train_x, train_y)
@@ -12,7 +13,6 @@ def train_GBDT(train_x, train_y,test_x, test_y):
     print (clf.score(test_x, test_y))
 
     return pd.DataFrame([1,2])
-
 """
 import xgboost as xgb
 from sklearn.model_selection import cross_validate,cross_val_predict, StratifiedKFold
@@ -57,4 +57,3 @@ def train_GBDT(train_x, train_y,test_x, test_y):
                         show_values=False)
     plt.show()
     return pd.DataFrame([1,2])
-"""
