@@ -15,7 +15,7 @@ from keras.layers import Dense, Activation
 def train_cnn(train_x, train_y,test_x, test_y):
     # モデルの作成
     model = Sequential()
-    model.add(Dense(3, input_dim=173))    # 入力層2ノード, 隠れ層に3ノード, 全結合
+    model.add(Dense(3, input_dim=len(train_x.columns)))    # 入力層2ノード, 隠れ層に3ノード, 全結合
     model.add(Activation("sigmoid"))    # 活性化関数はsigmoid
     model.add(Dense(1)) # 出力層2ノード,全結合
     model.add(Activation("sigmoid"))
@@ -31,7 +31,8 @@ def train_cnn(train_x, train_y,test_x, test_y):
     plt.plot(history.epoch, history.history["loss"], label="loss")
     plt.xlabel("epoch")
     plt.legend()
-
+    plt.show()
+    
     # 評価
     score = model.evaluate(test_x, test_y, verbose=1)
 
