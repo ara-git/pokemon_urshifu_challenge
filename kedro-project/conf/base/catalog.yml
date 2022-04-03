@@ -154,9 +154,29 @@ model_input_test_y:
       encoding: "utf-8"
 
 # 07_model_output
-model_output_weight:
+model_output_result_GBDT:
   type: pandas.CSVDataSet
-  filepath: data/07_model_output/weight.csv
+  filepath: data/07_model_output/result_GBDT.csv
+  save_args:
+    index: False
+    encoding: "utf-8"
+  fs_args:
+    open_args_save:
+      encoding: "utf-8"
+
+model_output_result_logistic:
+  type: pandas.CSVDataSet
+  filepath: data/07_model_output/result_logistic.csv
+  save_args:
+    index: False
+    encoding: "utf-8"
+  fs_args:
+    open_args_save:
+      encoding: "utf-8"
+
+model_output_result_cnn:
+  type: pandas.CSVDataSet
+  filepath: data/07_model_output/result_cnn.csv
   save_args:
     index: False
     encoding: "utf-8"

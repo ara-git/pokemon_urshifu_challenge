@@ -1,6 +1,9 @@
 import pandas as pd
 
 def merge_features(used_pokemon, type_frequency, opponent_advantage, params):
+    """
+    特徴量の列を結合する　
+    """
     merged = pd.DataFrame([])
 
     if params["use_feature_used_pokemon"]:

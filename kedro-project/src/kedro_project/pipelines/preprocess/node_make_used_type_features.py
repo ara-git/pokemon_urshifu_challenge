@@ -28,7 +28,9 @@ def make_used_type_features(merged_df, pokemon_data_sheet):
     
     # DataFrameに変換する
     type_frequency_df = pd.DataFrame(type_frequency_list, columns = type_name)
-
+    
+    # 平均・標準偏差で正規化する
+    type_frequency_df = type_frequency_df.apply(lambda x: (x-x.mean())/ x.std(), axis=0)
     return type_frequency_df
 
 def update_type_count_dict(type_count_dict, poke, pokemon_type_df):

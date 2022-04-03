@@ -1,19 +1,3 @@
-#学習
-from sklearn.ensemble import GradientBoostingClassifier
-import numpy as np
-import pandas as pd
-
-"""
-def train_GBDT(train_x, train_y,test_x, test_y):
-    clf = GradientBoostingClassifier(n_estimators=100, learning_rate=0.1,
-            max_depth=1).fit(train_x, train_y)
-
-    print ("Predict ",clf.predict(test_x))
-    print ("Expected", test_y)
-    print (clf.score(test_x, test_y))
-
-    return pd.DataFrame([1,2])
-"""
 import xgboost as xgb
 from sklearn.model_selection import cross_validate,cross_val_predict, StratifiedKFold
 import pandas as pd
@@ -21,6 +5,52 @@ import numpy as np
 import sklearn
 import matplotlib.pyplot as plt
 import japanize_matplotlib
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+from sklearn.preprocessing import StandardScaler
+from keras.models import Sequential
+from keras.layers import Dense, Activation
+
+def train_cnn(train_x, train_y,test_x, test_y):
+    # モデルの作成
+    model = Sequential()
+    model.add(Dense(3, input_dim=173))    # 入力層2ノード, 隠れ層に3ノード, 全結合
+    model.add(Activation("sigmoid"))    # 活性化関数はsigmoid
+    model.add(Dense(1)) # 出力層2ノード,全結合
+    model.add(Activation("sigmoid"))
+
+    model.compile(loss="binary_crossentropy",   # 誤差関数
+              optimizer="adam",     # 最適化手法
+              metrics=['accuracy'])
+
+    # 訓練
+    history = model.fit(train_x, train_y, epochs=200, batch_size=32) # 学習
+
+    plt.plot(history.epoch, history.history["accuracy"], label="acc")
+    plt.plot(history.epoch, history.history["loss"], label="loss")
+    plt.xlabel("epoch")
+    plt.legend()
+
+    # 評価
+    score = model.evaluate(test_x, test_y, verbose=1)
+
+    # print("Test score", score[0])
+    print("Test accuracy", score[1])
+
+    return pd.DataFrame(["Test accuracy", score[1]])
+
+def train_logistic(train_x, train_y,test_x, test_y):
+    """
+    ロジスティック回帰で学習する
+    """
+    model = LogisticRegression()
+    model.fit(train_x, train_y)
+
+    pred_y = model.predict(test_x)
+    print('logistic_score:', accuracy_score(test_y, pred_y))
+
+    return pd.DataFrame(['logistic_score:', accuracy_score(test_y, pred_y)])
 
 def train_GBDT(train_x, train_y,test_x, test_y):
     # ハイパーパラメータを指定して学習実行
@@ -46,14 +76,16 @@ def train_GBDT(train_x, train_y,test_x, test_y):
     y_test_pred = np.where(y_test_pred_prob > 0.5, 1, 0)
     acc = sklearn.metrics.accuracy_score(test_y, y_test_pred)
 
-    print("FFF")
-    print(acc)
-    
+    print("GBDT_score", acc)
+
+    """
     # 出力(2): 特徴量の重要度を描画
     _, ax = plt.subplots(figsize=(12, 12))
     xgb.plot_importance(booster,
                         ax=ax,
                         importance_type='gain',
                         show_values=False)
-    plt.show()
-    return pd.DataFrame([1,2])
+    
+    # plt.show()
+    """
+    return pd.DataFrame(["GBDT_score", acc])

@@ -27,4 +27,6 @@ def make_opponent_advantage_features(type_frequency_df, opponent_compatibility_d
     # 列名は"vsポケモン名"としてDataFrameを作成する
     opponent_advantage_df = pd.DataFrame(opponent_advantage_list, columns=list(map(lambda poke:"vs" + poke , opponent_compatibility_df["Unnamed: 0"])))
 
+    # 平均・標準偏差で正規化する
+    opponent_advantage_df = opponent_advantage_df.apply(lambda x: (x-x.mean())/ x.std(), axis=0)
     return opponent_advantage_df
