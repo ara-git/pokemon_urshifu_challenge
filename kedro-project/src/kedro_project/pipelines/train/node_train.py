@@ -77,9 +77,9 @@ def train_GBDT(train_x, train_y,test_x, test_y):
     y_test_pred = np.where(y_test_pred_prob > 0.5, 1, 0)
     acc = sklearn.metrics.accuracy_score(test_y, y_test_pred)
 
+    print(booster.get_fscore())
     print("GBDT_score", acc)
 
-    """
     # 出力(2): 特徴量の重要度を描画
     _, ax = plt.subplots(figsize=(12, 12))
     xgb.plot_importance(booster,
@@ -87,6 +87,5 @@ def train_GBDT(train_x, train_y,test_x, test_y):
                         importance_type='gain',
                         show_values=False)
     
-    # plt.show()
-    """
+    plt.show()
     return pd.DataFrame(["GBDT_score", acc])

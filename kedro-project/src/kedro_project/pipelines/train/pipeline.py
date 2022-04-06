@@ -15,7 +15,7 @@ def create_pipeline(**kwargs):
         [
             node(
                 split_data,
-                "model_input_feature_merged_data",
+                ["model_input_feature_merged_data", "raw_selected_features_name"],
                 ["model_input_train_x", "model_input_train_y", "model_input_test_x", "model_input_test_y"]
             ),
             node(

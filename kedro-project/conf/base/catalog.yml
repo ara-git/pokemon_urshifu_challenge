@@ -49,6 +49,16 @@ raw_type_compatibility:
     open_args_save:
       encoding: "utf-8"
 
+raw_selected_features_name:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/selected_features_name.csv
+  save_args:
+    index: False
+    encoding: "utf-8"
+  fs_args:
+    open_args_save:
+      encoding: "utf-8"
+
 # 02_intermediate
 intermediate_opponent_compatibility:
   type: pandas.CSVDataSet
