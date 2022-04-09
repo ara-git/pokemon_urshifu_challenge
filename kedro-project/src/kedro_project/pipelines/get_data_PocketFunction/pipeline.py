@@ -15,7 +15,7 @@ def create_pipeline(**kwargs):
                 main,
                 ["params:dark_urshifu_url", "params:water_urshifu_url"],
                 ["raw_dark_urshifu_data", "raw_water_urshifu_data"],
-                name="get_data_set",
+                name="get_data_set_from_PocketFunction",
             ),
         ]
     )
