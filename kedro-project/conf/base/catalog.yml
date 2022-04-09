@@ -19,6 +19,46 @@ raw_water_urshifu_data:
     open_args_save:
       encoding: "utf-8"
 
+raw_replay_urls_ShowDown:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/replay_urls_ShowDown.csv
+  save_args:
+    index: False
+    encoding: "utf-8"
+  fs_args:
+    open_args_save:
+      encoding: "utf-8"
+
+raw_htmls:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/htmls.csv
+  save_args:
+    index: False
+    encoding: "utf-8"
+  fs_args:
+    open_args_save:
+      encoding: "utf-8"
+
+raw_dark_urshifu_data_sd:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/dark_urshifu_data_sd.csv
+  save_args:
+    index: False
+    encoding: "utf-8"
+  fs_args:
+    open_args_save:
+      encoding: "utf-8"
+
+raw_water_urshifu_data_sd:
+  type: pandas.CSVDataSet
+  filepath: data/01_raw/water_urshifu_data_sd.csv
+  save_args:
+    index: False
+    encoding: "utf-8"
+  fs_args:
+    open_args_save:
+      encoding: "utf-8"
+
 raw_pokemon_data_sheet:
   type: pandas.CSVDataSet
   filepath: data/01_raw/pokemon_data_sheet.csv

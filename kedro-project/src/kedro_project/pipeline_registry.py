@@ -6,6 +6,7 @@ from kedro.pipeline import Pipeline
 from kedro_project.pipelines import get_data_PocketFunction
 from kedro_project.pipelines import preprocess
 from kedro_project.pipelines import train
+from kedro_project.pipelines import get_data_ShowDown
 
 def register_pipelines() -> Dict[str, Pipeline]:
     """Register the project's pipelines.
@@ -13,7 +14,8 @@ def register_pipelines() -> Dict[str, Pipeline]:
     Returns:
         A mapping from a pipeline name to a ``Pipeline`` object.
     """
-    get_data_pipeline = get_data_PocketFunction.create_pipeline()
+    get_data_pf_pipeline = get_data_PocketFunction.create_pipeline()
+    get_data_sd_pipeline = get_data_ShowDown.create_pipeline()
     preprocess_pipeline = preprocess.create_pipeline()
     train_pipeline= train.create_pipeline()
     
@@ -21,7 +23,14 @@ def register_pipelines() -> Dict[str, Pipeline]:
 
     if os.environ.get("get_data_pf") == "True":
         # ぽけっとふぁんくしょんからのデータ読み込みから行う場合、パイプラインを追加する
-        return_dict["get_data"] = get_data_pipeline
-        return_dict["__default__"] = get_data_pipeline + return_dict["__default__"]
+        return_dict["get_data_pf"] = get_data_pf_pipeline
+        return_dict["__default__"] = get_data_pf_pipeline + return_dict["__default__"]
 
+    if os.environ.get("get_data_sd") == "True":
+        # ShowDownからのデータ読み込みから行う場合、パイプラインを追加する
+        #return_dict["get_data"] = get_data_pipeline
+        #return_dict["__default__"] = get_data_pipeline + return_dict["__default__"]
+        return_dict = {"get_data_sd": get_data_sd_pipeline, "__default__": get_data_sd_pipeline}
+
+    print(return_dict)
     return return_dict
