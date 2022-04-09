@@ -1,2 +1,4 @@
 *.ipynb
 *.csv
+
+get_showdown_data/
