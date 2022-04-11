@@ -66,7 +66,10 @@ def get_party_data_from_html(poke_name_jp_en_dict, battle_log_str, side, urshifu
     """
     バトルデータのstringから構築のリストを抽出する
     Augs:
-        poke_name_jp_en_dict: キーが英語名、値が日本語名になっている
+        poke_name_jp_en_dict: ポケモン名が一対一で対応するような辞書。キーが英語名、値が日本語名になっている。
+        battle_log_str:対戦データのstring
+        side:抽出したい構築が自分("my")か相手か("opponent")
+        urshifu_type:抽出したいウーラオスのタイプ("dark" or "water")
     """
     if side == "my":
         # 自構築を抜き出す
@@ -87,10 +90,3 @@ def get_party_data_from_html(poke_name_jp_en_dict, battle_log_str, side, urshifu
         party_list.append("ウーラオス水")
 
     return party_list
-
-"""
-if __name__ == "__main__":
-    poke_data_sheet_df = pd.read_csv(r"C:\Users\ara-d\pokemon_urshifu_challenge\kedro-project\data\01_raw\pokemon_data_sheet.csv")
-    print(poke_data_sheet_df)
-    retrieve_party_from_html(None, poke_data_sheet_df)
-"""
