@@ -18,9 +18,6 @@ def retrieve_party_from_html(htmls, poke_data_sheet_df):
     files_list = glob.glob("data/01_raw/ShowDown_htmls/*")
     dark_urshifu_party_list = []
     water_urshifu_party_list = []
-    
-    soup = bs4.BeautifulSoup(open(r'C:\Users\ara-d\pokemon_urshifu_challenge\get_showdown_data\data\replay_htmls\Gen8BattleStadiumSingles-2022-04-04-akingofsand-bllkz.html', encoding= "utf-8"), 'html.parser')
-
 
     for i in range(len(files_list)):
         # ファイルを開く
@@ -91,7 +88,9 @@ def get_party_data_from_html(poke_name_jp_en_dict, battle_log_str, side, urshifu
 
     return party_list
 
+"""
 if __name__ == "__main__":
     poke_data_sheet_df = pd.read_csv(r"C:\Users\ara-d\pokemon_urshifu_challenge\kedro-project\data\01_raw\pokemon_data_sheet.csv")
     print(poke_data_sheet_df)
     retrieve_party_from_html(None, poke_data_sheet_df)
+"""
