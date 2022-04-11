@@ -43,7 +43,7 @@ def download_replay_html_from_showdown(replay_urls_df):
     # DLする回数
     #n = len(replay_urls_df)
     # テスト用に一旦少ない数で行う。
-    n = 10
+    n = 30
     for i in range(n):
         try:
             url = replay_urls_df["url"][i]
@@ -54,9 +54,11 @@ def download_replay_html_from_showdown(replay_urls_df):
             driver.find_element_by_xpath("/html/body/div[2]/div/div[1]/a").click()
 
             # 30秒待機
-            time.sleep(30)
+            time.sleep(20)
             print(i / n)
         except:
+            # 30秒待機
+            time.sleep(20)
             pass
 
     return pd.DataFrame([])
