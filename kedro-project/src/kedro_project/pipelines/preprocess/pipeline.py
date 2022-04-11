@@ -24,7 +24,7 @@ def create_pipeline(**kwargs):
             ), 
             node(
                 merge_raw_data,
-                ["raw_dark_urshifu_data", "raw_water_urshifu_data"],
+                ["raw_dark_urshifu_data", "raw_water_urshifu_data", "raw_dark_urshifu_data_sd", "raw_water_urshifu_data_sd"],
                 "primary_merged_data"
             ), 
             node(

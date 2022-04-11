@@ -3,6 +3,15 @@ import pandas as pd
 import glob
 
 def retrieve_party_from_html(htmls, poke_data_sheet_df):
+    """
+    DLしたローカルのhtmlファイル（showdownの対戦リプレイデータ）から、ウーラオス入りの構築データを取得する。
+    Augs:
+        htmls: Kedroが上手く動くための空のファイル（使わない）
+        poke_data_sheet_df: ポケモンの英名、日本語名を変換するためのデータ
+    Returns:
+        dark_urshifu_party_df: 悪ウーラオス入り構築のデータ
+        water_urshifu_party_df: 水ウーラオス入り構築のデータ
+    """
     poke_name_jp_en_dict = dict(zip(poke_data_sheet_df["英語名"], poke_data_sheet_df["名前"]))
 
     # フォルダ内部のファイル一覧を取得する
@@ -57,6 +66,11 @@ def retrieve_party_from_html(htmls, poke_data_sheet_df):
 
 
 def get_party_data_from_html(poke_name_jp_en_dict, battle_log_str, side, urshifu_type):
+    """
+    バトルデータのstringから構築のリストを抽出する
+    Augs:
+        poke_name_jp_en_dict: キーが英語名、値が日本語名になっている
+    """
     if side == "my":
         # 自構築を抜き出す
         party_list = [x.split(",")[0][9:] for x in battle_log_str.split("\n") if "|poke|p1|" in x]

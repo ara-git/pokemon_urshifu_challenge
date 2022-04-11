@@ -9,11 +9,6 @@ from kedro_project.pipelines import train
 from kedro_project.pipelines import get_data_ShowDown
 
 def register_pipelines() -> Dict[str, Pipeline]:
-    """Register the project's pipelines.
-
-    Returns:
-        A mapping from a pipeline name to a ``Pipeline`` object.
-    """
     get_data_pf_pipeline = get_data_PocketFunction.create_pipeline()
     get_data_sd_pipeline = get_data_ShowDown.create_pipeline()
     preprocess_pipeline = preprocess.create_pipeline()
@@ -26,11 +21,10 @@ def register_pipelines() -> Dict[str, Pipeline]:
         return_dict["get_data_pf"] = get_data_pf_pipeline
         return_dict["__default__"] = get_data_pf_pipeline + return_dict["__default__"]
 
-    if os.environ.get("get_data_sd") == "True":
+    if os.environ.get("get_data_sd_get_url") == "True" or os.environ.get("get_data_sd_download_html") == "True":
         # ShowDownからのデータ読み込みから行う場合、パイプラインを追加する
-        #return_dict["get_data"] = get_data_pipeline
-        #return_dict["__default__"] = get_data_pipeline + return_dict["__default__"]
-        return_dict = {"get_data_sd": get_data_sd_pipeline, "__default__": get_data_sd_pipeline}
+        return_dict["get_data"] = get_data_sd_pipeline
+        return_dict["__default__"] = get_data_sd_pipeline + return_dict["__default__"]
 
     print(return_dict)
     return return_dict
