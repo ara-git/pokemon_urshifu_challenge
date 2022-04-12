@@ -53,13 +53,13 @@ def train_logistic(train_x, train_y,test_x, test_y):
 
     return pd.DataFrame(['logistic_score:', accuracy_score(test_y, pred_y)])
 
-def train_GBDT(train_x, train_y,test_x, test_y):
+def train_GBDT(train_x, train_y,test_x, test_y, params_learning_rate_gbdt, params_max_depth_gbdt):
     # ハイパーパラメータを指定して学習実行
     train_params = {
         'objective': 'binary:logistic',
         'eval_metric': 'logloss',
-        'learning_rate': 0.01,
-        'max_depth': 4,
+        'learning_rate': params_learning_rate_gbdt,
+        'max_depth': params_max_depth_gbdt,
         'n_estimators': 60,
         'colsample_bytree': 0.6
     }

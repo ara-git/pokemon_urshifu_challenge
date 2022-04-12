@@ -5,3 +5,7 @@ param_freq_threshold: 5
 use_feature_used_pokemon: True
 use_feature_type_frequency: True
 use_feature_opponent_advantage: True
+
+# gbdt parameters
+learning_rate_gbdt: 0.01
+max_depth_gbdt: 8

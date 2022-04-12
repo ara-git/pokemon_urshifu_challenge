@@ -31,7 +31,6 @@ def retrieve_party_from_html(htmls, poke_data_sheet_df):
             ## ポケモン数が6の時のみ保存する
             if len(party_data) == 6:
                 water_urshifu_party_list.append(party_data)
-            print(files_list[i])
             
         elif "p1a: Urshifu|Urshifu" in battle_log_str:
             # 自構築に悪ウーラオスが入っている場合
@@ -46,7 +45,6 @@ def retrieve_party_from_html(htmls, poke_data_sheet_df):
             ## ポケモン数が6の時のみ保存する
             if len(party_data) == 6:
                 water_urshifu_party_list.append(party_data)
-            print(files_list[i])
 
         elif "p2a: Urshifu|Urshifu" in battle_log_str:
             # 相手構築に悪ウーラオスが入っている場合
@@ -57,9 +55,6 @@ def retrieve_party_from_html(htmls, poke_data_sheet_df):
 
     dark_urshifu_party_df = pd.DataFrame(dark_urshifu_party_list, columns = ["p1", "p2", "p3", "p4", "p5", "p6"])
     water_urshifu_party_df = pd.DataFrame(water_urshifu_party_list, columns = ["p1", "p2", "p3", "p4", "p5", "p6"])
-
-    print(dark_urshifu_party_df)
-    print(water_urshifu_party_df)
 
     return dark_urshifu_party_df, water_urshifu_party_df
 

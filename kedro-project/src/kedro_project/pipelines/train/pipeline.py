@@ -20,7 +20,7 @@ def create_pipeline(**kwargs):
             ),
             node(
                 train_GBDT,
-                ["model_input_train_x", "model_input_train_y", "model_input_test_x", "model_input_test_y"],
+                ["model_input_train_x", "model_input_train_y", "model_input_test_x", "model_input_test_y", "params:learning_rate_gbdt", "params:max_depth_gbdt"],
                 "model_output_result_GBDT"
             ),
             node(
