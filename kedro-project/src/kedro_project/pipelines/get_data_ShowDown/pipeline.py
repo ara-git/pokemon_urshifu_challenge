@@ -54,7 +54,7 @@ def create_pipeline(**kwargs):
                 ),
             ]
         )
-    else:
+    elif os.environ.get("get_data_sd_read_html") == "True":
         # htmlファイルから構築情報の抽出のみ行う。
             return Pipeline(
             [

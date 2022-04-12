@@ -61,7 +61,7 @@ def download_replay_html_from_showdown(replay_urls_df):
             time.sleep(20)
             pass
 
-    return pd.DataFrame([])
+    return pd.DataFrame(["empty_file"])
     
 """
 if __name__ == "__main__":
