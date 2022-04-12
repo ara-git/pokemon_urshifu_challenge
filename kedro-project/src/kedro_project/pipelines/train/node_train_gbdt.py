@@ -2,7 +2,7 @@
 light gbmを使って、gbdtモデルの二値分類を行う。
 尚、評価に当たってはクロスバリデーション（n = 5）で行う。
 """
-
+import pandas as pd
 import numpy as np
 from sklearn.model_selection import StratifiedKFold
 import lightgbm as lgb
@@ -48,12 +48,17 @@ def train_gbdt(df, pram_gbdt_max_bin, pram_gbdt_num_leaves):
 
         pred_y = model.predict(test_x, num_iteration=model.best_iteration)
 
-        # 値を離散値に変換する
+        # 値を離散値に変換し、スコアを計算、保存する
         pred_y = (pred_y > 0.5).astype(int)
         score = (sum(pred_y == test_y) / len(test_y))
         score_list.append(score)
-        # print("gbdt_score:", score)
-    
+        
+        """
+        # 重要度を出力する
+        importance = pd.DataFrame(model.feature_importance(), index = x.columns, columns=['importance'])
+        print(importance)
+        """
+        
     # 平均スコアを計算する
     score_list = np.array(score_list)
     average_score = np.average(score_list)

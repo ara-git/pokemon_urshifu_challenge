@@ -6,15 +6,25 @@ Delete this when you start working on your own Kedro project.
 
 from kedro.pipeline import Pipeline, node
 
-from .node_split_data import split_data
-from .node_train import train_GBDT, train_logistic, train_cnn
 from .node_train_gbdt import train_gbdt
+from .node_train_cnn import train_cnn
+from .node_train_logistic import train_logistic
 
 def create_pipeline(**kwargs):
     return Pipeline(
         [   node(
                 train_gbdt,
                 ["model_input_feature_merged_data", "params:gbdt_max_bin", "params:gbdt_num_leaves"],
+                outputs=None
+            ),
+            node(
+                train_cnn,
+                ["model_input_feature_merged_data", "params:cnn_hidden_node_num", "params:cnn_epoch_num", "params:cnn_batch_size"],
+                outputs=None
+            ),
+            node(
+                train_logistic,
+                "model_input_feature_merged_data",
                 outputs=None
             )
         ]

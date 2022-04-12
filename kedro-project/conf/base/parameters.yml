@@ -10,3 +10,8 @@ use_feature_opponent_advantage: True
 gbdt_max_bin: 300
 gbdt_learning_rate: 0.01
 gbdt_num_leaves: 40
+
+# cnn parameters
+cnn_hidden_node_num: 3
+cnn_epoch_num: 200
+cnn_batch_size: 32
