@@ -1,6 +1,6 @@
 import pandas as pd
 
-def merge_features(used_pokemon, type_frequency, opponent_advantage, params):
+def merge_features(used_pokemon, type_frequency, opponent_advantage, selected_feature_name_df , params):
     """
     特徴量の列を結合する　
     """
@@ -20,5 +20,9 @@ def merge_features(used_pokemon, type_frequency, opponent_advantage, params):
         # [0, 1]で収まるように標準化する
         opponent_advantage = opponent_advantage / opponent_advantage.max()
         merged = pd.concat([merged, opponent_advantage], axis=1)
+
+    # 使う特徴量を抽出する
+    selected_feature_name_list = list(selected_feature_name_df["feature name"])
+    merged = merged[["target"] + selected_feature_name_list]
 
     return merged

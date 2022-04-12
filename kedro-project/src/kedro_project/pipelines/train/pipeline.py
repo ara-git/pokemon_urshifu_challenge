@@ -8,30 +8,14 @@ from kedro.pipeline import Pipeline, node
 
 from .node_split_data import split_data
 from .node_train import train_GBDT, train_logistic, train_cnn
-
+from .node_train_gbdt import train_gbdt
 
 def create_pipeline(**kwargs):
     return Pipeline(
-        [
-            node(
-                split_data,
-                ["model_input_feature_merged_data", "raw_selected_features_name"],
-                ["model_input_train_x", "model_input_train_y", "model_input_test_x", "model_input_test_y"]
-            ),
-            node(
-                train_GBDT,
-                ["model_input_train_x", "model_input_train_y", "model_input_test_x", "model_input_test_y", "params:learning_rate_gbdt", "params:max_depth_gbdt"],
-                "model_output_result_GBDT"
-            ),
-            node(
-                train_logistic,
-                ["model_input_train_x", "model_input_train_y", "model_input_test_x", "model_input_test_y"],
-                "model_output_result_logistic"
-            ),
-            node(
-                train_cnn,
-                ["model_input_train_x", "model_input_train_y", "model_input_test_x", "model_input_test_y"],
-                "model_output_result_cnn"
-            ),
+        [   node(
+                train_gbdt,
+                ["model_input_feature_merged_data", "params:gbdt_max_bin", "params:gbdt_num_leaves"],
+                outputs=None
+            )
         ]
     )

@@ -44,7 +44,7 @@ def create_pipeline(**kwargs):
             ), 
             node(
                 merge_features,
-                ["feature_used_pokemon", "feature_type_frequency", "feature_opponent_advantage", "parameters"],
+                ["feature_used_pokemon", "feature_type_frequency", "feature_opponent_advantage", "raw_selected_features_name", "parameters"],
                 "model_input_feature_merged_data"
             ),
 
