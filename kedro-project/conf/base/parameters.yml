@@ -1,15 +1,22 @@
 dark_urshifu_url: "https://nouthuca.com/search/?pokemon[0]=%E3%82%A6%E3%83%BC%E3%83%A9%E3%82%AA%E3%82%B9%E6%82%AA&&rule[%E3%82%B7%E3%83%B3%E3%82%B0%E3%83%AB]=on"
 water_urshifu_url: "https://nouthuca.com/search/?pokemon[0]=%E3%82%A6%E3%83%BC%E3%83%A9%E3%82%AA%E3%82%B9%E6%B0%B4&&rule[%E3%82%B7%E3%83%B3%E3%82%B0%E3%83%AB]=on"
+
+# 使用ポケモン特徴量の計算に使う閾値（最低出現回数）を決める。
 param_freq_threshold: 5
 
+# Features setting
+## 使用する特徴量を決める
 use_feature_used_pokemon: True
 use_feature_type_frequency: True
 use_feature_opponent_advantage: True
 
+## 指定した特徴量のみ使うかどうか
+use_selected_features: False
+
 # gbdt parameters
 gbdt_max_bin: 300
 gbdt_learning_rate: 0.01
-gbdt_num_leaves: 40
+gbdt_num_leaves: 50
 
 # cnn parameters
 cnn_hidden_node_num: 3

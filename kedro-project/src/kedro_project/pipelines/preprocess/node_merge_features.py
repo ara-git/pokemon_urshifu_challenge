@@ -21,8 +21,9 @@ def merge_features(used_pokemon, type_frequency, opponent_advantage, selected_fe
         opponent_advantage = opponent_advantage / opponent_advantage.max()
         merged = pd.concat([merged, opponent_advantage], axis=1)
 
-    # 使う特徴量を抽出する
-    selected_feature_name_list = list(selected_feature_name_df["feature name"])
-    merged = merged[["target"] + selected_feature_name_list]
+    # 使う特徴量を抽出する(パラメータでするかしないか決める)
+    if params["use_selected_features"]:
+        selected_feature_name_list = list(selected_feature_name_df["feature name"])
+        merged = merged[["target"] + selected_feature_name_list]
 
     return merged
