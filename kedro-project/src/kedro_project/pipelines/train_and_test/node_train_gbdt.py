@@ -4,8 +4,6 @@ light gbmを使って、gbdtモデルの二値分類を行う。
 
 また、特徴量の重要度も計算する。
 """
-from matplotlib.pyplot import axis
-from outcome import acapture
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import StratifiedKFold

@@ -15,9 +15,9 @@ use_feature_opponent_advantage: True
 use_selected_features: True
 
 # gbdt parameters
-gbdt_max_bin: 500
+gbdt_max_bin: 300
 gbdt_learning_rate: 0.01
-gbdt_num_leaves: 100
+gbdt_num_leaves: 50
 
 # cnn parameters
 cnn_hidden_node_num: 16
