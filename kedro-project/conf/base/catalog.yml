@@ -163,50 +163,10 @@ model_input_feature_merged_data:
     open_args_save:
       encoding: "utf-8"
 
-model_input_train_x:
-  type: pandas.CSVDataSet
-  filepath: data/05_model_input/train_x.csv
-  save_args:
-    index: False
-    encoding: "utf-8"
-  fs_args:
-    open_args_save:
-      encoding: "utf-8"
-
-model_input_train_y:
-  type: pandas.CSVDataSet
-  filepath: data/05_model_input/train_y.csv
-  save_args:
-    index: False
-    encoding: "utf-8"
-  fs_args:
-    open_args_save:
-      encoding: "utf-8"
-
-model_input_test_x:
-  type: pandas.CSVDataSet
-  filepath: data/05_model_input/test_x.csv
-  save_args:
-    index: False
-    encoding: "utf-8"
-  fs_args:
-    open_args_save:
-      encoding: "utf-8"
-
-model_input_test_y:
-  type: pandas.CSVDataSet
-  filepath: data/05_model_input/test_y.csv
-  save_args:
-    index: False
-    encoding: "utf-8"
-  fs_args:
-    open_args_save:
-      encoding: "utf-8"
-
 # 07_model_output
-model_output_result_GBDT:
+model_output_result_gbdt:
   type: pandas.CSVDataSet
-  filepath: data/07_model_output/result_GBDT.csv
+  filepath: data/07_model_output/result_gbdt.csv
   save_args:
     index: False
     encoding: "utf-8"

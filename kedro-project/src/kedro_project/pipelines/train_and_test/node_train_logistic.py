@@ -38,4 +38,4 @@ def train_logistic(df):
     average_score = np.average(score_list)
     print("logistic_score:", average_score)
 
-    return None
+    return pd.DataFrame([average_score], columns = ["score"])

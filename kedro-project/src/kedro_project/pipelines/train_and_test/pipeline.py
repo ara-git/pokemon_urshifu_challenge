@@ -15,17 +15,17 @@ def create_pipeline(**kwargs):
         [   node(
                 train_gbdt,
                 ["model_input_feature_merged_data", "params:gbdt_max_bin", "params:gbdt_num_leaves"],
-                outputs=None
-            ),
+                outputs="model_output_result_gbdt"
+                ),
             node(
                 train_cnn,
                 ["model_input_feature_merged_data", "params:cnn_hidden_node_num", "params:cnn_epoch_num", "params:cnn_batch_size"],
-                outputs=None
+                outputs="model_output_result_cnn"
             ),
             node(
                 train_logistic,
                 "model_input_feature_merged_data",
-                outputs=None
+                outputs="model_output_result_logistic"
             )
         ]
     )

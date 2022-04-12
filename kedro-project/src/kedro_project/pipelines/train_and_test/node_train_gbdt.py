@@ -58,10 +58,49 @@ def train_gbdt(df, pram_gbdt_max_bin, pram_gbdt_num_leaves):
         importance = pd.DataFrame(model.feature_importance(), index = x.columns, columns=['importance'])
         print(importance)
         """
-        
+
     # 平均スコアを計算する
     score_list = np.array(score_list)
     average_score = np.average(score_list)
     print("gbdt_score:", average_score)
 
-    return None
+    return pd.DataFrame([average_score], columns = ["score"])
+
+"""
+def train_GBDT(train_x, train_y,test_x, test_y, params_learning_rate_gbdt, params_max_depth_gbdt):
+    # ハイパーパラメータを指定して学習実行
+    train_params = {
+        'objective': 'binary:logistic',
+        'eval_metric': 'logloss',
+        'learning_rate': params_learning_rate_gbdt,
+        'max_depth': params_max_depth_gbdt,
+        'n_estimators': 60,
+        'colsample_bytree': 0.6
+    }
+    clf = xgb.XGBClassifier(**train_params)
+
+    clf.fit(train_x, train_y, eval_set=[[test_x, test_y]])
+
+    model = xgb.XGBClassifier(n_estimators=20, random_state=71)
+    model.fit(train_x, train_y)
+    
+    # 出力(1): 検証用データに対する精度を確認
+    booster = clf.get_booster()
+    dtest = xgb.DMatrix(test_x, label=test_y)
+    y_test_pred_prob = booster.predict(dtest)
+    y_test_pred = np.where(y_test_pred_prob > 0.5, 1, 0)
+    acc = sklearn.metrics.accuracy_score(test_y, y_test_pred)
+
+    print(booster.get_fscore())
+    print("GBDT_score", acc)
+
+    # 出力(2): 特徴量の重要度を描画
+    _, ax = plt.subplots(figsize=(12, 12))
+    xgb.plot_importance(booster,
+                        ax=ax,
+                        importance_type='gain',
+                        show_values=False)
+    
+    plt.show()
+    return pd.DataFrame(["GBDT_score", acc])
+"""

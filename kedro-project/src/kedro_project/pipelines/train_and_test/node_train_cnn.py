@@ -52,4 +52,4 @@ def train_cnn(df, param_cnn_hidden_node_num, param_cnn_epoch_num, param_cnn_batc
     average_score = np.average(score_list)
     print("cnn_score:", average_score)
 
-    return None
+    return pd.DataFrame([average_score], columns = ["score"])
