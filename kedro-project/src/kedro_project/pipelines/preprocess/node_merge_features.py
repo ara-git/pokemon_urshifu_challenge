@@ -23,7 +23,7 @@ def merge_features(used_pokemon, type_frequency, opponent_advantage, selected_fe
 
     # 使う特徴量を抽出する(パラメータでするかしないか決める)
     if params["use_selected_features"]:
-        selected_feature_name_list = list(selected_feature_name_df["feature name"])
+        selected_feature_name_list = list(selected_feature_name_df.iloc[:, 0])
         merged = merged[["target"] + selected_feature_name_list]
 
     return merged

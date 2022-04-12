@@ -10,8 +10,9 @@ use_feature_used_pokemon: True
 use_feature_type_frequency: True
 use_feature_opponent_advantage: True
 
+## "kedro-project\data\01_raw\selected_features_name.csv"で
 ## 指定した特徴量のみ使うかどうか
-use_selected_features: False
+use_selected_features: True
 
 # gbdt parameters
 gbdt_max_bin: 300

@@ -200,3 +200,10 @@ model_output_merged_result:
   save_args:
     index: True
     encoding: "utf-8"
+
+model_output_importance_gbdt:
+  type: pandas.CSVDataSet
+  filepath: data/07_model_output/importance_gbdt.csv
+  save_args:
+    index: True
+    encoding: "utf-8"

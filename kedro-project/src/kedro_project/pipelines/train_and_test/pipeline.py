@@ -16,7 +16,7 @@ def create_pipeline(**kwargs):
         [   node(
                 train_gbdt,
                 ["model_input_feature_merged_data", "params:gbdt_max_bin", "params:gbdt_num_leaves"],
-                outputs="model_output_result_gbdt"
+                outputs= ["model_output_result_gbdt", "model_output_importance_gbdt"]
                 ),
             node(
                 train_cnn,

@@ -1,7 +1,11 @@
 """
 light gbmを使って、gbdtモデルの二値分類を行う。
 尚、評価に当たってはクロスバリデーション（n = 5）で行う。
+
+また、特徴量の重要度も計算する。
 """
+from matplotlib.pyplot import axis
+from outcome import acapture
 import pandas as pd
 import numpy as np
 from sklearn.model_selection import StratifiedKFold
@@ -16,6 +20,8 @@ def train_gbdt(df, pram_gbdt_max_bin, pram_gbdt_num_leaves):
     cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=0)
     
     score_list = []
+    importance_df = pd.DataFrame([])
+
     for fold_id, (train_index, test_index) in enumerate(cv.split(x, y)):
         # 学習データと検証データに分割する
         train_x = x.iloc[train_index, : ]
@@ -53,18 +59,22 @@ def train_gbdt(df, pram_gbdt_max_bin, pram_gbdt_num_leaves):
         score = (sum(pred_y == test_y) / len(test_y))
         score_list.append(score)
         
-        """
-        # 重要度を出力する
-        importance = pd.DataFrame(model.feature_importance(), index = x.columns, columns=['importance'])
-        print(importance)
-        """
+
+        # 重要度を計算する
+        tmp_importance_df = pd.DataFrame(model.feature_importance(), index = x.columns)
+        importance_df = pd.concat([importance_df, tmp_importance_df], axis=1)
+
+
+    # 平均重要度を計算し、降順に並び変える
+    importance_df = pd.DataFrame(importance_df.mean(axis = "columns"), columns = ["importance"])
+    importance_df = importance_df.sort_values("importance", ascending= False)
 
     # 平均スコアを計算する
     score_list = np.array(score_list)
     average_score = np.average(score_list)
     print("gbdt_score:", average_score)
 
-    return pd.DataFrame([average_score], columns = ["score"])
+    return pd.DataFrame([average_score], columns = ["score"]), importance_df
 
 """
 def train_GBDT(train_x, train_y,test_x, test_y, params_learning_rate_gbdt, params_max_depth_gbdt):
