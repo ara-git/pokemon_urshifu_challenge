@@ -48,7 +48,7 @@ def train_gbdt(df, pram_gbdt_max_bin, pram_gbdt_num_leaves):
         model = lgb.train(params, 
         lgb_train, 
         valid_sets=[lgb_train, lgb_test],
-        verbose_eval=10, 
+        verbose_eval=False,
         num_boost_round=1000, 
         early_stopping_rounds=10)
 

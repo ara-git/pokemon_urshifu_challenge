@@ -1,3 +1,4 @@
+from tabnanny import verbose
 from sklearn.model_selection import StratifiedKFold
 import pandas as pd
 import numpy as np
@@ -23,7 +24,7 @@ def train_logistic(df):
         train_y = y.iloc[train_index]
         test_y = y.iloc[test_index]
         
-        model = LogisticRegression()
+        model = LogisticRegression(verbose=0)
 
         # 学習
         model.fit(train_x, train_y)
