@@ -9,6 +9,7 @@ from kedro.pipeline import Pipeline, node
 from .node_train_gbdt import train_gbdt
 from .node_train_cnn import train_cnn
 from .node_train_logistic import train_logistic
+from .node_merge_result import merge_result
 
 def create_pipeline(**kwargs):
     return Pipeline(
@@ -26,6 +27,11 @@ def create_pipeline(**kwargs):
                 train_logistic,
                 "model_input_feature_merged_data",
                 outputs="model_output_result_logistic"
+            ),
+            node(
+                merge_result,
+                ["model_output_result_gbdt", "model_output_result_cnn", "model_output_result_logistic"],
+                outputs="model_output_merged_result"
             )
         ]
     )

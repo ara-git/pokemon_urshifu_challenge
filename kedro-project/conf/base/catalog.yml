@@ -193,3 +193,10 @@ model_output_result_cnn:
   fs_args:
     open_args_save:
       encoding: "utf-8"
+
+model_output_merged_result:
+  type: pandas.CSVDataSet
+  filepath: data/07_model_output/merged_result.csv
+  save_args:
+    index: True
+    encoding: "utf-8"
