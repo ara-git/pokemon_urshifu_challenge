@@ -43,9 +43,6 @@ def train_cnn_full_data(df, param_cnn_hidden_node_num, param_cnn_epoch_num, para
         validation_data=[valid_x, valid_y],
         callbacks=[early_stopping],
         verbose=0) # 学習
-
-    # 学習済みモデルをpickleファイルで保存する
-    file = "data/06_models/trained_model_cnn.pkl"
-    pickle.dump(model, open(file, "wb"))
-
+    
+    model.save("data/06_models/trained_model_cnn.h5")
     return None
