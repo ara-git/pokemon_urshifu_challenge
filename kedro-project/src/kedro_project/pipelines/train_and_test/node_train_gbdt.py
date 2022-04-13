@@ -9,35 +9,26 @@ import numpy as np
 from sklearn.model_selection import StratifiedKFold
 import lightgbm as lgb
 
-def train_gbdt(df, pram_gbdt_max_bin, pram_gbdt_num_leaves):
-    # 説明変数・被説明変数を定義
-    y = df["target"]
-    x = df[df.columns[df.columns != 'target']]
-
+def train_gbdt(train_x, train_y, test_x, test_y, pram_gbdt_max_bin, pram_gbdt_num_leaves):
+    # test_yをnp.arrayに変換しておく
+    test_y = np.array(test_y.iloc[:, 0])
     # クロスバリデーションの設定
     cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=0)
     
     score_list = []
     importance_df = pd.DataFrame([])
 
-    for fold_id, (train_index, test_index) in enumerate(cv.split(x, y)):
+    for fold_id, (train_index, valid_index) in enumerate(cv.split(train_x, train_y)):
         # 学習データと検証データに分割する
-        train_x = x.iloc[train_index, : ]
-        test_x = x.iloc[test_index, : ]
-        train_y = y.iloc[train_index]
-        test_y = y.iloc[test_index]
-        
-        """
-        print(f"fold_id: {fold_id}")
-        print(f"train_y y == 1 rate: {sum(train_y / len(train_y))}")
-        print(f"test_y y == 1 rate:, {sum(test_y / len(test_y))}")
-        """
+        train_cv_x = train_x.iloc[train_index, : ]
+        valid_x = train_x.iloc[valid_index, : ]
+        train_cv_y = train_y.iloc[train_index]
+        valid_y = train_y.iloc[valid_index]
     
         # 学習
-        lgb_train = lgb.Dataset(train_x, train_y)
+        lgb_train = lgb.Dataset(train_cv_x, train_cv_y)
 
-        # 検証
-        lgb_test = lgb.Dataset(test_x, test_y, reference=lgb_train)
+        lgb_valid = lgb.Dataset(valid_x, valid_y, reference=lgb_train)
         params = {
             "objective": "binary",
             "max_bin": pram_gbdt_max_bin,
@@ -45,21 +36,22 @@ def train_gbdt(df, pram_gbdt_max_bin, pram_gbdt_num_leaves):
         }
         model = lgb.train(params, 
         lgb_train, 
-        valid_sets=[lgb_train, lgb_test],
+        valid_sets=[lgb_train, lgb_valid],
         verbose_eval=False,
         num_boost_round=1000, 
         early_stopping_rounds=10)
 
+        # 検証
         pred_y = model.predict(test_x, num_iteration=model.best_iteration)
 
         # 値を離散値に変換し、スコアを計算、保存する
         pred_y = (pred_y > 0.5).astype(int)
-        score = (sum(pred_y == test_y) / len(test_y))
+
+        score = sum(pred_y == test_y) / len(test_y)
         score_list.append(score)
-        
 
         # 重要度を計算する
-        tmp_importance_df = pd.DataFrame(model.feature_importance(), index = x.columns)
+        tmp_importance_df = pd.DataFrame(model.feature_importance(), index = train_x.columns)
         importance_df = pd.concat([importance_df, tmp_importance_df], axis=1)
 
 
@@ -71,7 +63,7 @@ def train_gbdt(df, pram_gbdt_max_bin, pram_gbdt_num_leaves):
     score_list = np.array(score_list)
     average_score = np.average(score_list)
     print("gbdt_score:", average_score)
-
+    
     return pd.DataFrame([average_score], columns = ["score"]), importance_df
 
 """
