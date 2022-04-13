@@ -1,8 +1,8 @@
 """
 light gbmを使って、gbdtモデルの二値分類を行う。
-尚、評価に当たってはクロスバリデーション（n = 5）で行う。
+尚、評価に当たってはクロスバリデーション（n = 5）を行い、平均スコアを計算する。
 
-また、特徴量の重要度も計算する。
+また、特徴量の重要度も計算し、出力する。
 """
 import pandas as pd
 import numpy as np
@@ -26,9 +26,10 @@ def train_gbdt(train_x, train_y, test_x, test_y, pram_gbdt_max_bin, pram_gbdt_nu
         valid_y = train_y.iloc[valid_index]
     
         # 学習
+        ## light gbm用に学習、検証データを指定する
         lgb_train = lgb.Dataset(train_cv_x, train_cv_y)
-
         lgb_valid = lgb.Dataset(valid_x, valid_y, reference=lgb_train)
+
         params = {
             "objective": "binary",
             "max_bin": pram_gbdt_max_bin,

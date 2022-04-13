@@ -15,9 +15,10 @@ from .node_train_gbdt_use_full_data import train_gbdt_full_data
 
 def create_pipeline(**kwargs):
     if os.environ.get("save_weight") == "True":
-            return Pipeline(
-            [   node(
-                    "model_input_feature_merged_data",
+        return Pipeline(
+            [   
+                node(
+                    train_gbdt_full_data,
                     ["model_input_feature_merged_data", "params:gbdt_max_bin", "params:gbdt_num_leaves"],
                     outputs = None
                 ),
