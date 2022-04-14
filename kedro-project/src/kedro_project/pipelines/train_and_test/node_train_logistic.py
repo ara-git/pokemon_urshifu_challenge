@@ -32,6 +32,5 @@ def train_logistic(train_x, train_y, test_x):
     # dataframeに変更する
     pred_y_df = pd.DataFrame(pred_y_list).T
     pred_y_df.columns = ["pred"] * len(pred_y_df.columns)
-    print(pred_y_df)
 
     return pred_y_df

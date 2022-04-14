@@ -234,16 +234,17 @@ model_output_prediction_cnn:
     open_args_save:
       encoding: "utf-8"
 
-model_output_merged_result:
+model_output_importance_gbdt:
   type: pandas.CSVDataSet
-  filepath: data/07_model_output/merged_result.csv
+  filepath: data/07_model_output/importance_gbdt.csv
   save_args:
     index: True
     encoding: "utf-8"
 
-model_output_importance_gbdt:
+
+model_output_prediction_result: 
   type: pandas.CSVDataSet
-  filepath: data/07_model_output/importance_gbdt.csv
+  filepath: data/07_model_output/prediction_result.csv
   save_args:
     index: True
     encoding: "utf-8"

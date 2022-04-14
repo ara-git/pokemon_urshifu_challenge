@@ -48,6 +48,7 @@ def train_cnn(train_x, train_y, test_x, param_cnn_hidden_node_num, param_cnn_epo
             verbose=0) # 学習
 
         """
+        # 学習記録を出力する
         plt.plot(history.epoch, history.history["accuracy"], label="acc")
         plt.plot(history.epoch, history.history["loss"], label="loss")
         plt.xlabel("epoch")
