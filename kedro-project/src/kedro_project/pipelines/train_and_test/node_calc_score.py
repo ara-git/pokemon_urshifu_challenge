@@ -28,13 +28,13 @@ def calc_score(test_y, pred_gbdt_df, pred_cnn_df, pred_logistic_df):
         pred_df["ensemble"] = list(pred_df.sum(axis = 1))
         pred_df["ensemble"] = list((pred_df["ensemble"] >= 2).astype(int))
 
-        print(pred_df)
-
+        # 予測スコアを計算する
         score_gbdt = accuracy_score(test_y, pred_df["gbdt"])
         score_cnn = accuracy_score(test_y, pred_df["cnn"])
         score_logistic = accuracy_score(test_y, pred_df["logistic"])
         score_emsemble = accuracy_score(test_y, pred_df["ensemble"])
         
+        # 結果を保存する
         score_gbdt_list.append(score_gbdt)
         score_cnn_list.append(score_cnn)
         score_logistic_list.append(score_logistic)
