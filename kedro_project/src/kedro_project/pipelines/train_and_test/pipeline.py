@@ -14,9 +14,16 @@ from .node_calc_score import calc_score
 
 from .node_train_gbdt_use_full_data import train_gbdt_full_data
 from .node_train_cnn_use_full_data import train_cnn_full_data
+from .node_train_logistic_use_full_data import train_logistic_full_data
 
 def create_pipeline(**kwargs):
     if os.environ.get("save_weight") == "True":
+        """
+        streamlitアプリ用の重みを計算する。
+        環境変数 "save_weight"がTrueの時のみ実行する。
+
+        基本的にすべてのデータを使う。
+        """
         return Pipeline(
             [   
                 node(
@@ -27,6 +34,11 @@ def create_pipeline(**kwargs):
                 node(
                     train_cnn_full_data,
                     ["model_input_feature_merged_data", "params:cnn_hidden_node_num", "params:cnn_epoch_num", "params:cnn_batch_size"],
+                    outputs = None
+                ),
+                node(
+                    train_logistic_full_data,
+                    "model_input_feature_merged_data",
                     outputs = None
                 ),
             ]
