@@ -4,13 +4,13 @@ import numpy as np
 from keras.models import Sequential
 from keras.layers import Dense, Activation
 from keras.callbacks import EarlyStopping
+from pandas.core.common import flatten
 
-def train_cnn(train_x, train_y, test_x, test_y, param_cnn_hidden_node_num, param_cnn_epoch_num, param_cnn_batch_size):
+def train_cnn(train_x, train_y, test_x, param_cnn_hidden_node_num, param_cnn_epoch_num, param_cnn_batch_size):
     # クロスバリデーションの設定
     cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=0)
     
-    score_list = []
-
+    pred_y_list = []
     for fold_id, (train_index, valid_index) in enumerate(cv.split(train_x, train_y)):
         # 学習データと検証データに分割する
         train_cv_x = train_x.iloc[train_index, : ]
@@ -55,13 +55,19 @@ def train_cnn(train_x, train_y, test_x, test_y, param_cnn_hidden_node_num, param
         plt.show()
         """
 
+        """
         # 評価
         score = model.evaluate(test_x, test_y, verbose=1)[1]
         score_list.append(score)
+        """
+        # 予測値を計算し、リスト化して保存する
+        pred_y = model.predict(test_x)
+        pred_y = np.array(list(flatten(pred_y)))
+        pred_y = list((pred_y > 0.5).astype(int))
+        pred_y_list.append(pred_y)
 
-    # 平均スコアを計算する
-    score_list = np.array(score_list)
-    average_score = np.average(score_list)
-    print("cnn_score:", average_score)
+    # dataframeに変更する
+    pred_y_df = pd.DataFrame(pred_y_list).T
+    pred_y_df.columns = ["pred"] * len(pred_y_df.columns)
 
-    return pd.DataFrame([average_score], columns = ["score"])
+    return pred_y_df

@@ -9,15 +9,13 @@ import numpy as np
 from sklearn.model_selection import StratifiedKFold
 import lightgbm as lgb
 
-def train_gbdt(train_x, train_y, test_x, test_y, pram_gbdt_max_bin, pram_gbdt_num_leaves):
-    # test_yをnp.arrayに変換しておく
-    test_y = np.array(test_y.iloc[:, 0])
+def train_gbdt(train_x, train_y, test_x, pram_gbdt_max_bin, pram_gbdt_num_leaves):
     # クロスバリデーションの設定
     cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=0)
     
-    score_list = []
     importance_df = pd.DataFrame([])
 
+    pred_y_list = []
     for fold_id, (train_index, valid_index) in enumerate(cv.split(train_x, train_y)):
         # 学習データと検証データに分割する
         train_cv_x = train_x.iloc[train_index, : ]
@@ -46,26 +44,36 @@ def train_gbdt(train_x, train_y, test_x, test_y, pram_gbdt_max_bin, pram_gbdt_nu
         pred_y = model.predict(test_x, num_iteration=model.best_iteration)
 
         # 値を離散値に変換し、スコアを計算、保存する
-        pred_y = (pred_y > 0.5).astype(int)
+        pred_y = list((pred_y > 0.5).astype(int))
 
-        score = sum(pred_y == test_y) / len(test_y)
-        score_list.append(score)
-
+        pred_y_list.append(pred_y)
+        
         # 重要度を計算する
         tmp_importance_df = pd.DataFrame(model.feature_importance(), index = train_x.columns)
         importance_df = pd.concat([importance_df, tmp_importance_df], axis=1)
 
+    # dataframeに変更する
+    pred_y_df = pd.DataFrame(pred_y_list).T
+    pred_y_df.columns = ["pred"] * len(pred_y_df.columns)
+    print(pred_y_df)
 
     # 平均重要度を計算し、降順に並び変える
     importance_df = pd.DataFrame(importance_df.mean(axis = "columns"), columns = ["importance"])
     importance_df = importance_df.sort_values("importance", ascending= False)
 
+    """
     # 平均スコアを計算する
     score_list = np.array(score_list)
     average_score = np.average(score_list)
     print("gbdt_score:", average_score)
-    
-    return pd.DataFrame([average_score], columns = ["score"]), importance_df
+    """
+
+    return pred_y_df, importance_df
+
+"""
+# test_yをnp.arrayに変換しておく
+test_y = np.array(test_y.iloc[:, 0])
+"""
 
 """
 def train_GBDT(train_x, train_y,test_x, test_y, params_learning_rate_gbdt, params_max_depth_gbdt):

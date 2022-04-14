@@ -204,9 +204,9 @@ model_input_test_y:
       encoding: "utf-8"
 
 # 07_model_output
-model_output_result_gbdt:
+model_output_prediction_gbdt:
   type: pandas.CSVDataSet
-  filepath: data/07_model_output/result_gbdt.csv
+  filepath: data/07_model_output/prediction_gbdt.csv
   save_args:
     index: False
     encoding: "utf-8"
@@ -214,9 +214,9 @@ model_output_result_gbdt:
     open_args_save:
       encoding: "utf-8"
 
-model_output_result_logistic:
+model_output_prediction_logistic:
   type: pandas.CSVDataSet
-  filepath: data/07_model_output/result_logistic.csv
+  filepath: data/07_model_output/prediction_logistic.csv
   save_args:
     index: False
     encoding: "utf-8"
@@ -224,9 +224,9 @@ model_output_result_logistic:
     open_args_save:
       encoding: "utf-8"
 
-model_output_result_cnn:
+model_output_prediction_cnn:
   type: pandas.CSVDataSet
-  filepath: data/07_model_output/result_cnn.csv
+  filepath: data/07_model_output/prediction_cnn.csv
   save_args:
     index: False
     encoding: "utf-8"

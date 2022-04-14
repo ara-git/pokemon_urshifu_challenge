@@ -42,23 +42,18 @@ def create_pipeline(**kwargs):
                 ),
             node(
                 train_gbdt,
-                ["model_input_train_x", "model_input_train_y", "model_input_test_x", "model_input_test_y", "params:gbdt_max_bin", "params:gbdt_num_leaves"],
-                outputs= ["model_output_result_gbdt", "model_output_importance_gbdt"]
+                ["model_input_train_x", "model_input_train_y", "model_input_test_x", "params:gbdt_max_bin", "params:gbdt_num_leaves"],
+                outputs= ["model_output_prediction_gbdt", "model_output_importance_gbdt"]
                 ),
             node(
                 train_cnn,
-                ["model_input_train_x", "model_input_train_y", "model_input_test_x", "model_input_test_y", "params:cnn_hidden_node_num", "params:cnn_epoch_num", "params:cnn_batch_size"],
-                outputs="model_output_result_cnn"
+                ["model_input_train_x", "model_input_train_y", "model_input_test_x", "params:cnn_hidden_node_num", "params:cnn_epoch_num", "params:cnn_batch_size"],
+                outputs="model_output_prediction_cnn"
             ),
             node(
                 train_logistic,
-                ["model_input_train_x", "model_input_train_y", "model_input_test_x", "model_input_test_y"],
-                outputs="model_output_result_logistic"
+                ["model_input_train_x", "model_input_train_y", "model_input_test_x"],
+                outputs="model_output_prediction_logistic"
             ),
-            node(
-                merge_result,
-                ["model_output_result_gbdt", "model_output_result_cnn", "model_output_result_logistic"],
-                outputs="model_output_merged_result"
-            )
         ]
     )
