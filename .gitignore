@@ -1,4 +1,4 @@
 *.ipynb
-*.csv
+# *.csv
 
 get_showdown_data/
