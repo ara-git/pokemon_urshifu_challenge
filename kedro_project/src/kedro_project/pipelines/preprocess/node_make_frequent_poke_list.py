@@ -18,5 +18,5 @@ def make_frequent_pokemon_list(merged_df, param_freq_threshold):
     
     frequent_pokemon_list = list(frequent_pokemon_df.index)
     # df形式にして保存
-    frequent_pokemon_df = pd.DataFrame(frequent_pokemon_list)
+    frequent_pokemon_df = pd.DataFrame(frequent_pokemon_list, columns=["name"])
     return frequent_pokemon_df

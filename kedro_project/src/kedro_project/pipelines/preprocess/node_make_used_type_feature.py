@@ -1,6 +1,6 @@
 import pandas as pd
 
-def make_used_type_features(merged_df, pokemon_data_sheet):
+def make_used_type_feature(merged_df, pokemon_data_sheet):
     """
     タイプの出現頻度を計算し、DataFrame形式で出力する
     """

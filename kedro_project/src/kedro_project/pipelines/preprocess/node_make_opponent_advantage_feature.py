@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-def make_opponent_advantage_features(type_frequency_df, opponent_compatibility_df):
+def make_opponent_advantage_feature(type_frequency_df, opponent_compatibility_df):
     """
     仮想敵（上位ポケモン）に対する有利度合いを計算する。
     具体的には、攻めのタイプ相性(打点数)を計算する。

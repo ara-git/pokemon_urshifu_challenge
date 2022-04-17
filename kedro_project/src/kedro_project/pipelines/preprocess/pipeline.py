@@ -10,10 +10,10 @@ from kedro.pipeline import Pipeline, node
 from .node_calc_opponent_weakness import calc_opponent_weakness
 from .node_merge_raw_data import merge_raw_data
 from .node_make_frequent_poke_list import make_frequent_pokemon_list
-from .node_make_used_pokemon_features import make_used_pokemon_features
-from .node_make_used_type_features import make_used_type_features
+from .node_make_used_pokemon_feature import make_used_pokemon_feature
+from .node_make_used_type_feature import make_used_type_feature
 from .node_merge_features import merge_features
-from .node_make_opponent_advantage_feature import make_opponent_advantage_features
+from .node_make_opponent_advantage_feature import make_opponent_advantage_feature
 
 def create_pipeline(**kwargs):
     return Pipeline(
@@ -34,17 +34,17 @@ def create_pipeline(**kwargs):
                 "intermediate_frequent_pokemon_list"
             ),
             node(
-                make_used_pokemon_features,
+                make_used_pokemon_feature,
                 ["primary_merged_data", "intermediate_frequent_pokemon_list"],
                 "feature_used_pokemon"
             ),
             node(
-                make_used_type_features,
+                make_used_type_feature,
                 ["primary_merged_data", "raw_pokemon_data_sheet"],
                 "feature_type_frequency"
             ),
             node(
-                make_opponent_advantage_features,
+                make_opponent_advantage_feature,
                 ["feature_type_frequency", "intermediate_opponent_compatibility"],
                 "feature_opponent_advantage"
             ), 

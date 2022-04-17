@@ -1,6 +1,6 @@
 import pandas as pd
 
-def make_used_pokemon_features(merged_df, frequent_pokemon_df):
+def make_used_pokemon_feature(merged_df, frequent_pokemon_df):
     """
     使用したポケモンに関する、シンプルなone-hotデータに変換する。
     ただし、低頻出（一回以下）ポケモンのデータは使わない。
@@ -12,7 +12,7 @@ def make_used_pokemon_features(merged_df, frequent_pokemon_df):
         one_hot_df:パーティで使用しているポケモンの情報のみが入ったシンプルなone-hot
     """
     # 高頻出ポケモンのリストを作成し、それに関する辞書を作成する    
-    frequent_list = list(frequent_pokemon_df.iloc[:, 1])
+    frequent_list = list(frequent_pokemon_df["name"])
     one_hot_dict = dict(zip(frequent_list, [0] * len(frequent_list)))
 
     one_hot_list = []
@@ -30,7 +30,6 @@ def make_used_pokemon_features(merged_df, frequent_pokemon_df):
         one_hot_list.append(list(one_hot_dict.values()))
 
     one_hot_df = pd.DataFrame(one_hot_list, columns = frequent_list)
-
     # 列名を変更する
     one_hot_df = one_hot_df.rename(columns={"ウーラオス悪": "target"})
     # 不要列を削除する
