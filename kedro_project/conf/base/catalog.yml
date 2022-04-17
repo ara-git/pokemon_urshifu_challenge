@@ -110,6 +110,17 @@ intermediate_opponent_compatibility:
     open_args_save:
       encoding: "utf-8"
 
+intermediate_frequent_pokemon_list: 
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/frequent_pokemon_list.csv
+  save_args:
+    index: True
+    encoding: "utf-8"
+  fs_args:
+    open_args_save:
+      encoding: "utf-8"
+
+
 # 03_primary
 primary_merged_data:
   type: pandas.CSVDataSet

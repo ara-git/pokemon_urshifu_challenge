@@ -9,6 +9,7 @@ from kedro.pipeline import Pipeline, node
 
 from .node_calc_opponent_weakness import calc_opponent_weakness
 from .node_merge_raw_data import merge_raw_data
+from .node_make_frequent_poke_list import make_frequent_pokemon_list
 from .node_make_used_pokemon_features import make_used_pokemon_features
 from .node_make_used_type_features import make_used_type_features
 from .node_merge_features import merge_features
@@ -28,8 +29,13 @@ def create_pipeline(**kwargs):
                 "primary_merged_data"
             ), 
             node(
-                make_used_pokemon_features,
+                make_frequent_pokemon_list,
                 ["primary_merged_data", "params:param_freq_threshold"],
+                "intermediate_frequent_pokemon_list"
+            ),
+            node(
+                make_used_pokemon_features,
+                ["primary_merged_data", "intermediate_frequent_pokemon_list"],
                 "feature_used_pokemon"
             ),
             node(
