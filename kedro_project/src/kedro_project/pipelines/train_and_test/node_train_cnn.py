@@ -5,11 +5,13 @@ from keras.models import Sequential
 from keras.layers import Dense, Activation
 from keras.callbacks import EarlyStopping
 from pandas.core.common import flatten
+from numpy.random import seed
 
 def train_cnn(train_x, train_y, test_x, param_cnn_hidden_node_num, param_cnn_epoch_num, param_cnn_batch_size):
     # クロスバリデーションの設定
     cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=0)
     
+    seed(1)
     pred_y_list = []
     for fold_id, (train_index, valid_index) in enumerate(cv.split(train_x, train_y)):
         # 学習データと検証データに分割する
