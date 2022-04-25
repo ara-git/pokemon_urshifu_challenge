@@ -9,8 +9,37 @@ import numpy as np
 from sklearn.model_selection import StratifiedKFold
 import lightgbm as lgb
 
+# LightGBMおよび交差検定用
+from sklearn.model_selection import KFold
+import optuna.integration.lightgbm as lgb
+
 def train_gbdt(train_x, train_y, test_x, pram_gbdt_max_bin, pram_gbdt_num_leaves):
-    # クロスバリデーションの設定
+    """
+    まずoptunaでハイパラをチューニングし、それを使ってtestデータを予測する。
+    尚、cvで分割し、平均スコアを計算する。
+    """
+    # ハイパーパラメータサーチ&モデル構築
+    params = {'objective': "binary",
+            'metric': 'rmse',
+            'random_seed':0} 
+
+    # LightGBM用のデータセットに変換
+    lgb_train = lgb.Dataset(train_x, train_y)
+
+    # クロスバリデーションによるハイパーパラメータの探索 3fold
+    tuner = lgb.LightGBMTunerCV(params, lgb_train, verbose_eval=100, early_stopping_rounds=100, folds=KFold(n_splits=5))
+
+    # ハイパーパラメータ探索の実行
+    tuner.run()
+
+    # サーチしたパラメータの表示
+    best_params = tuner.best_params
+    print("  Params: ")
+    for key, value in best_params.items():
+        print("    {}: {}".format(key, value))
+
+    # ここから改めて学習を行う
+    ## クロスバリデーションの設定
     cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=0)
     
     importance_df = pd.DataFrame([])
@@ -33,7 +62,7 @@ def train_gbdt(train_x, train_y, test_x, pram_gbdt_max_bin, pram_gbdt_num_leaves
             "max_bin": pram_gbdt_max_bin,
             "num_leaves": pram_gbdt_num_leaves
         }
-        model = lgb.train(params, 
+        model = lgb.train(best_params, 
         lgb_train, 
         valid_sets=[lgb_train, lgb_valid],
         verbose_eval=False,
@@ -60,4 +89,5 @@ def train_gbdt(train_x, train_y, test_x, pram_gbdt_max_bin, pram_gbdt_num_leaves
     importance_df = pd.DataFrame(importance_df.mean(axis = "columns"), columns = ["importance"])
     importance_df = importance_df.sort_values("importance", ascending= False)
 
+    # return pd.DataFrame([]), pd.DataFrame([])
     return pred_y_df, importance_df
