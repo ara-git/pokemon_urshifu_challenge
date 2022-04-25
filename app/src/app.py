@@ -88,7 +88,7 @@ if len(input_poke_name_list) == 5:
 
     ## gbdt
     pred_y_gbdt = model_gbdt.predict(x)
-    prediction_result_list.append(round(pred_y_gbdt))
+    prediction_result_list.append(round(pred_y_gbdt[0]))
     
     ## cnn
     pred_y_cnn = model_cnn.predict(x)
@@ -96,7 +96,7 @@ if len(input_poke_name_list) == 5:
     
     ## logistic
     pred_y_logistic = model_logistic.predict(x)
-    prediction_result_list.append(round(pred_y_logistic))
+    prediction_result_list.append(round(pred_y_logistic[0]))
 
     # 結果をまとめ、予測結果を出力する
     prediction_result_df = pd.DataFrame(prediction_result_list).T
