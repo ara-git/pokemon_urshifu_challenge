@@ -108,3 +108,5 @@ if len(input_poke_name_list) == 5:
     st.write("ジャッジ３(sklearn logistic)：", str(prediction_result_df["logistic"][0]))
 
 
+else:
+    st.write("左のバーにウーラオス以外のポケモン（５体）を入力してください。")
